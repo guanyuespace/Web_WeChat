@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LoginInfo {
     public static boolean uuid_flag = false;
@@ -22,12 +23,16 @@ public class LoginInfo {
     public static String qr_path_store = "D:/WeChat/info/mine/QR.jpg";//二维码存储位置
     public static String info_mine = "D:/WeChat/info/mine";
     public static String contact_imgs = "D:/WeChat/info/img";
-    public static boolean isLogin = false;//登陆状态
+    public static AtomicBoolean isLogin = new AtomicBoolean();//登陆状态
     public static Status status;//登陆信息{skey, sid, uin, pass_ticket}
     public static InitInfo initInfo;//init信息{SyncKey,Skey,user}
     public static ArrayList<User> friendsList;//好友列表
-    private static long loginTime = 0l;
+    private static long loginTime = 0l;//js GET param '_' 数值递增
     private static User me;
+
+    static {
+        isLogin.set(false);
+    }
 
     public static User getMe() {
         return me;

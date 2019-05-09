@@ -67,6 +67,7 @@ public class InitInfo {
     }
 
     public void setSyncKey(SyncKey syncKey) {
+        System.out.println("Set syncKey=" + syncKey);
         this.syncKey = syncKey;
     }
 }

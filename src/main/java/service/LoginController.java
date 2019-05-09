@@ -35,7 +35,8 @@ public class LoginController {
      * @throws IOException
      */
     private static void getUUID() throws IOException {
-        String url = "https://login.wx.qq.com/jslogin?appid=wx782c26e4c19acffb&redirect_uri=https%3A%2F%2Fwx.qq.com%2Fcgi-bin%2Fmmwebwx-bin%2Fwebwxnewloginpage&fun=new&lang=zh_CN&_=" + System.currentTimeMillis();
+
+        String url = "https://login.wx.qq.com/jslogin?appid=wx782c26e4c19acffb&redirect_uri=https%3A%2F%2Fwx.qq.com%2Fcgi-bin%2Fmmwebwx-bin%2Fwebwxnewloginpage&fun=new&lang=zh_CN&_=" + LoginInfo.getLoginTime();
         String res = EntityUtils.toString(httpClient.doGet(url, false).getEntity());
         System.out.println(res);
         Pattern pattern = Pattern.compile("window.QRLogin.code = (\\d+); window.QRLogin.uuid = \"(\\S+?)\";");
@@ -74,7 +75,7 @@ public class LoginController {
      */
     private static void getAvatar() throws IOException {
         String rand = getRand(10);
-        String url = "https://login.wx.qq.com/cgi-bin/mmwebwx-bin/login?loginicon=true&uuid=" + LoginInfo.uuid + "&tip=1&r=" + rand + "&_=" + System.currentTimeMillis();
+        String url = "https://login.wx.qq.com/cgi-bin/mmwebwx-bin/login?loginicon=true&uuid=" + LoginInfo.uuid + "&tip=1&r=" + rand + "&_=" + LoginInfo.getLoginTime();
         String res = EntityUtils.toString(httpClient.doGet(url, false).getEntity());
         Pattern pattern = Pattern.compile("window.code=(\\d+);(window.userAvatar = \'data:(.*);base64,(.*)\')?");
         Matcher matcher = pattern.matcher(res);
@@ -97,7 +98,7 @@ public class LoginController {
      * @throws IOException
      */
     private static void redict() throws IOException {
-        String url = "https://login.wx.qq.com/cgi-bin/mmwebwx-bin/login?loginicon=true&uuid=" + LoginInfo.uuid + "&tip=0&r=" + getRand(10) + "&_=" + System.currentTimeMillis();
+        String url = "https://login.wx.qq.com/cgi-bin/mmwebwx-bin/login?loginicon=true&uuid=" + LoginInfo.uuid + "&tip=0&r=" + getRand(10) + "&_=" + LoginInfo.getLoginTime();
         String res = EntityUtils.toString(httpClient.doGet(url, false).getEntity());
         String[] retState = res.split("\n");
         Pattern pattern = Pattern.compile("window.code=(\\d+);");
@@ -135,8 +136,8 @@ public class LoginController {
             LoginInfo.status = status;
             System.out.println(status);
             if (status.ret.equals("0")) {
-                LoginInfo.isLogin = true;
-                LoginInfo.setLoginTime();
+                LoginInfo.isLogin.set(true);
+
                 System.out.println("ok ... ...");
                 if (!redict.equals(""))
                     httpClient.doGet(redict, false);//登陆首页跳转
@@ -187,6 +188,7 @@ public class LoginController {
     public void login() {
         try {
             firstHomeGet();
+            LoginInfo.setLoginTime();//设置登录时间，js GET 参数：'_'递增
             getUUID();
             if (LoginInfo.uuid_flag) {
                 //二维码
@@ -195,12 +197,14 @@ public class LoginController {
                 getAvatar();
                 //跳转,获取status{skey, sid, uin, pass_ticket}
                 redict();
-                if (LoginInfo.isLogin) {//ok
+                if (LoginInfo.isLogin.get()) {//ok
                     //获取InitInfo{SyncKey, Skey}
                     webwxinit();
 
                     //获取好友列表
                     getContact();
+
+                    wxStatusNotify();
 
                     //开始信息接收
                     MessageTools.start();
@@ -209,15 +213,31 @@ public class LoginController {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            logout();
+
         }
+    }
+
+    /**
+     *
+     */
+    private void wxStatusNotify() throws IOException {
+        String url = "https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxstatusnotify?lang=en_US&pass_ticket=" + LoginInfo.status.getPass_ticket();
+        String param = "{\"BaseRequest\":{\"Uin\":" + LoginInfo.status.getWxuin() + ",\"Sid\":\"" + LoginInfo.status.getWxsid() + "\"," +
+                "\"Skey\":\"" + LoginInfo.status.getSkey() + "\"," +
+                "\"DeviceID\":\"e" + LoginInfo.getRand(15) + "\"},\"Code\":3," +
+                "\"FromUserName\":\"" + LoginInfo.getMe().getUserName() + "\"," +
+                "\"ToUserName\":\"" + LoginInfo.getMe().getUserName() + "\"," +
+                "\"ClientMsgId\":" + System.currentTimeMillis() + "}";
+
+        String res = EntityUtils.toString(httpClient.doPost(url, null, param, null).getEntity());
+        System.out.println(res);
     }
 
     /**
      * 注销登陆
      * Content-Type: application/x-www-form-urlencoded
      */
-    private void logout() {
+    public void logout() {
         String url = "https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxlogout?redirect=1&type=0&skey=" + LoginInfo.status.getSkey();
         List<NameValuePair> nameValuePairList = new ArrayList<>();
         nameValuePairList.add(new BasicNameValuePair("sid", LoginInfo.status.getWxsid()));
