@@ -1,0 +1,9 @@
+res/
+out/*
+.idea/
+.gradle/*
+gradle/*
+*gradle*
+!build.gradle
+
+*.secret
