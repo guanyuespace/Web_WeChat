@@ -119,8 +119,14 @@ Set syncKey=SyncKey{Count=7, List=[SyncKeyInfo{Key=1, Val=682766575}, SyncKeyInf
 五月 10, 2019 11:44:01 上午 service.MessageTools syncCheck
 信息: window.synccheck={retcode:"0",selector:"2"}
 五月 10, 2019 11:44:01 上午 util.MyHttpClient doPost
+<<<<<<< HEAD
 
 信息: https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid=6lsjJn156xYOJSyZ&skey=@crypt_8909546a_0be43cef75935f3a1154faff9f3ff05f	HTTP/1.1 200 OK
+=======
+信息: https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid=6lsjJn156xYOJSyZ&skey=@crypt_8909546a_0be43cef75935f3a1154faff9f3ff05f	HTTP/1.1 200 OK
+
+
+>>>>>>> testing
 五月 10, 2019 11:44:01 上午 util.MyHttpClient doPost
 Set syncKey=SyncKey{Count=7, List=[SyncKeyInfo{Key=1, Val=682766575}, SyncKeyInfo{Key=2, Val=682766696}, SyncKeyInfo{Key=3, Val=682766684}, SyncKeyInfo{Key=11, Val=682766581}, SyncKeyInfo{Key=201, Val=1557459840}, SyncKeyInfo{Key=1000, Val=1557445519}, SyncKeyInfo{Key=1001, Val=1557445523}]}
 信息: Cookie:mm_lang=zh_CN;mm_lang=zh_CN;webwx_auth_ticket=CIsBEOfknfkLGoABBpmOl5xIOJ67wU0J8SOu0wrBfJg7RVbGQpxPmQvJU4wxl1VL3itGlwgJZTTStcpci8SsVW43BghIF7HlW3cZTACUMYvfezvLE4rBtbqJpmkOMpsa2jtg1W0g6vgOuvuUQ4mTiIcoKWmGj2zORR40gD35Oq6I+ZT+8Esf1/zwyis=;webwx_data_ticket=gSeJxHIddSiZ5lcDkPPAec7C;webwxuvid=80accb219ffb25535b8dd2c9857332dabf88f7942a3f60c6aa359caa5ed16834edcfd7c55a35d9d93cb1940ab4fb2471;wxloadtime=1557459828_expired;wxpluginkey=1557445519;wxsid=6lsjJn156xYOJSyZ;wxuin=1315386831;
@@ -563,7 +569,10 @@ Set syncKey=SyncKey{Count=7, List=[SyncKeyInfo{Key=1, Val=682766575}, SyncKeyInf
 五月 10, 2019 11:50:08 上午 service.MessageTools syncCheck
 信息: window.synccheck={retcode:"0",selector:"2"}
 五月 10, 2019 11:50:08 上午 util.MyHttpClient doPost
+<<<<<<< HEAD
 
+=======
+>>>>>>> testing
 信息: https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid=6lsjJn156xYOJSyZ&skey=@crypt_8909546a_0be43cef75935f3a1154faff9f3ff05f	HTTP/1.1 200 OK
 五月 10, 2019 11:50:08 上午 util.MyHttpClient doPost
 Set syncKey=SyncKey{Count=7, List=[SyncKeyInfo{Key=1, Val=682766575}, SyncKeyInfo{Key=2, Val=682766716}, SyncKeyInfo{Key=3, Val=682766684}, SyncKeyInfo{Key=11, Val=682766581}, SyncKeyInfo{Key=201, Val=1557460208}, SyncKeyInfo{Key=1000, Val=1557445519}, SyncKeyInfo{Key=1001, Val=1557445523}]}
@@ -584,9 +593,16 @@ Set syncKey=SyncKey{Count=7, List=[SyncKeyInfo{Key=1, Val=682766575}, SyncKeyInf
 信息: https://webpush.wx2.qq.com/cgi-bin/mmwebwx-bin/synccheck?r=1557460219675&skey=@crypt_8909546a_0be43cef75935f3a1154faff9f3ff05f&sid=6lsjJn156xYOJSyZ&uin=1315386831&deviceid=e732677898589748&synckey=1_682766575%7C2_682766717%7C3_682766684%7C11_682766581%7C201_1557460219%7C1000_1557445519%7C1001_1557445523&_=1557459822424	HTTP/1.1 502 Fiddler - DNS Lookup Failed
 五月 10, 2019 12:32:25 下午 util.MyHttpClient doGet
 信息: Cookie:mm_lang=zh_CN;mm_lang=zh_CN;webwx_auth_ticket=CIsBEOfknfkLGoABBpmOl5xIOJ67wU0J8SOu0wrBfJg7RVbGQpxPmQvJU4wxl1VL3itGlwgJZTTStcpci8SsVW43BghIF7HlW3cZTACUMYvfezvLE4rBtbqJpmkOMpsa2jtg1W0g6vgOuvuUQ4mTiIcoKWmGj2zORR40gD35Oq6I+ZT+8Esf1/zwyis=;webwx_data_ticket=gSeJxHIddSiZ5lcDkPPAec7C;webwxuvid=80accb219ffb25535b8dd2c9857332dabf88f7942a3f60c6aa359caa5ed16834edcfd7c55a35d9d93cb1940ab4fb2471;wxloadtime=1557459828_expired;wxpluginkey=1557445519;wxsid=6lsjJn156xYOJSyZ;wxuin=1315386831;
+<<<<<<< HEAD
+=======
+
+
+///////////////////////////断网... ...
+
+>>>>>>> testing
 五月 10, 2019 12:32:25 下午 service.MessageTools syncCheck
-信息: [Fiddler] DNS Lookup for "webpush.wx2.qq.com" failed. The system reports that no network connection is available. 
-System.Net.Sockets.SocketException 不知道这样的主机。                                                                                                                                                                                                                                                                                                                                                                 
+信息: [Fiddler] DNS Lookup for "webpush.wx2.qq.com" failed. The system reports that no network connection is available.
+System.Net.Sockets.SocketException 不知道这样的主机。
 Exception in thread "Thread-1" java.lang.NullPointerException
 	at service.MessageTools.lambda$start$0(MessageTools.java:29)
 	at java.lang.Thread.run(Thread.java:748)

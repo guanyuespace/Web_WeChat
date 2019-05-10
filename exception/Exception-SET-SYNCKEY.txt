@@ -103,7 +103,11 @@ Set syncKey=SyncKey{Count=0, List=[]}  //////////////////////////why this ??? ??
 信息: EXCEPTION-RES:  
 五月 10, 2019 10:46:02 上午 service.MessageTools syncCheck
 信息: EXCEPTION-URL:  
+<<<<<<< HEAD
 Exception in thread "Thread-1" java.lang.StringIndexOutOfBoundsException: String index out of range: -1
+=======
+Exception in thread "Thread-1" java.lang.StringIndexOutOfBoundsException: String index out of range: -1/////由于synckey 数据异常导致
+>>>>>>> testing
 	at java.lang.AbstractStringBuilder.substring(AbstractStringBuilder.java:935)
 	at java.lang.StringBuilder.substring(StringBuilder.java:76)
 	at info.base.InitInfo.getSyncKeyStr(InitInfo.java:37)

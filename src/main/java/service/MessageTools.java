@@ -15,17 +15,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 消息收发处理
+ * 消息收发处理逻辑
  */
 public class MessageTools {
     private static Logger LOG = Logger.getLogger(MyHttpClient.class.getName());
     private static MyHttpClient httpClient = MyHttpClient.getINSTANCE();
 
-    public static void start() {
+    static void start() {
         new Thread(() -> {
             while (LoginInfo.isLogin.get()) {
                 try {
                     SyncCheckRes syncCheckRes = syncCheck();
+                    if (syncCheckRes == null)
+                        break;
                     if (syncCheckRes.getRetcode().equals("0") && syncCheckRes.getSelector().equals("2"))
                         webWxSync();
                     if (syncCheckRes.getRetcode().equals("1101"))//其它地方登陆
@@ -46,6 +48,9 @@ public class MessageTools {
         }).start();
     }
 
+    /**
+     *
+     */
     private static void webWxSync() {
         String res = "";
         String url = "";
@@ -74,6 +79,11 @@ public class MessageTools {
         }
     }
 
+    /**
+     * @param content
+     * @param fromUserName
+     * @param toUserName
+     */
     private static void webWxSendMsg(String content, String fromUserName, String toUserName) {
         try {
             long currernt = System.currentTimeMillis() * 10000;
@@ -91,6 +101,9 @@ public class MessageTools {
         }
     }
 
+    /**
+     * @return
+     */
     private static SyncCheckRes syncCheck() {
         String res = "";
         String url = "";
@@ -102,7 +115,7 @@ public class MessageTools {
             if (httpResponse != null && httpResponse.getEntity() != null) {//上层发生异常，关闭response
                 res = EntityUtils.toString(httpResponse.getEntity());
             } else {
-                return new SyncCheckRes("9999", "9999");
+                return new SyncCheckRes("9999", "9999");//自定义... ...
             }
         } catch (Exception e) {
             LOG.info("EXCEPTION-RES:  " + res);
