@@ -59,6 +59,12 @@ public class MyHttpClient {
         return ret.toString();
     }
 
+    /**
+     * httpclient 默认自动跳转
+     * @param url
+     * @param redirect
+     * @return
+     */
     public HttpResponse doGet(String url, boolean redirect) {
         HttpGet httpGet;
         CloseableHttpResponse httpResponse = null;

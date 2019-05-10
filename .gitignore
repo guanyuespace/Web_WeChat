@@ -1,7 +1,5 @@
 res/
-.gradle/
+out/
 .idea/
-gradle/
 
-*gradle*
 *.secret
