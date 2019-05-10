@@ -90,6 +90,7 @@ public class MyHttpClient {
                     e1.printStackTrace();
                 }
             }
+            System.out.println("Exception: " + url);
             e.printStackTrace();
         } finally {
 
