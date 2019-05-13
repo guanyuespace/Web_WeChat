@@ -24,7 +24,7 @@ public class LoginInfo {
     public static String qr_path_store = "D:/WeChat/info/mine/QR.jpg";//二维码存储位置
     public static String info_mine = "D:/WeChat/info/mine";
     public static String contact_imgs = "D:/WeChat/info/img";
-    public static AtomicBoolean isLogin = new AtomicBoolean();//登陆状态
+    public static boolean isLogin = false;//登陆状态
     public static Status status;//登陆信息{skey, sid, uin, pass_ticket}
     public static InitInfo initInfo;//init信息{SyncKey,Skey,user}
     public static ArrayList<User> friendsList;//好友列表
@@ -32,9 +32,6 @@ public class LoginInfo {
     private static User me;
     private static Logout logout;
 
-    static {
-        isLogin.set(false);
-    }
 
 
     private LoginInfo() {

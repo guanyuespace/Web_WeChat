@@ -23,7 +23,7 @@ public class MessageTools {
 
     static void start() {
         new Thread(() -> {
-            while (LoginInfo.isLogin.get()) {
+            while (LoginInfo.isLogin) {
                 try {
                     SyncCheckRes syncCheckRes = syncCheck();
                     if (syncCheckRes == null)
@@ -43,7 +43,7 @@ public class MessageTools {
                     LOG.info("Exception:" + e.getMessage());
                 }
             }
-            LoginInfo.isLogin.set(false);
+            LoginInfo.isLogin = false;
             LoginInfo.getLogout().doLogout();
         }).start();
     }
@@ -74,6 +74,10 @@ public class MessageTools {
                 String Content = messageInfo.getContent();
                 String toUserName = messageInfo.getFromUserName();
                 String fromUserName = messageInfo.getToUserName();
+
+//                MessageProcess messageProcess = new MessageProcess();
+//                messageProcess.processText(Content);
+
                 webWxSendMsg(Content, fromUserName, toUserName);
             }
         }

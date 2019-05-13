@@ -4,7 +4,6 @@ package service;
 import com.alibaba.fastjson.JSON;
 import info.ContactInfo;
 import info.LoginInfo;
-import info.User;
 import info.base.InitInfo;
 import info.base.Status;
 import org.apache.http.HttpEntity;
@@ -17,12 +16,9 @@ import util.FileUtils;
 import util.MyHttpClient;
 import util.ShowPic;
 
-import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -140,7 +136,7 @@ public class LoginController {
             LoginInfo.status = status;
             System.out.println(status);
             if (status.ret.equals("0")) {
-                LoginInfo.isLogin.set(true);
+                LoginInfo.isLogin = true;
 
                 System.out.println("ok ... ...");
                 if (!redict.equals(""))
@@ -158,7 +154,7 @@ public class LoginController {
         if (FileUtils.existsOrCreateDirs(LoginInfo.contact_imgs)) {
             String url = "https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxgetcontact?r=" + System.currentTimeMillis() + "&seq=0&skey=" + LoginInfo.status.getSkey();
             CloseableHttpResponse response = httpClient.doGet(url, false);
-            String text = EntityUtils.toString(response.getEntity(), "utf-8");
+            String text = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
             ContactInfo contactInfo = JSON.parseObject(text, ContactInfo.class);
             System.out.println(contactInfo);
             friendsList = contactInfo.getMemberList();
@@ -203,7 +199,7 @@ public class LoginController {
                 getAvatar();
                 //跳转,获取status{skey, sid, uin, pass_ticket}
                 redict();
-                if (LoginInfo.isLogin.get()) {//ok
+                if (LoginInfo.isLogin) {//ok
                     //获取InitInfo{SyncKey, Skey}
                     webwxinit();
 
