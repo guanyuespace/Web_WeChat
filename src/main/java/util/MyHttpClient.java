@@ -34,8 +34,8 @@ public class MyHttpClient {
 
     static {
         httpClient = HttpClients.custom()
-                .setSSLContext(MySSLSocketFactory.createSSLContext())
-                .setProxy(new HttpHost("127.0.0.1", 8888))
+                .setSSLContext(MySSLSocketFactory.createSSLContext())//SSL Context(证书验证)
+                .setProxy(new HttpHost("127.0.0.1", 8888))//fiddler代理
                 .setDefaultRequestConfig(requestConfig)
                 .setDefaultCookieStore(defaultCookieStore)
                 .setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36")

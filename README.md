@@ -57,8 +57,6 @@ GET:https://wx2.qq.com/  ok
 ```
 Redict获取信息 skey, uin, sid, pass_ticket
 
-
-
 ### webwxinit
 ```
 Request:
@@ -114,6 +112,8 @@ Request:
 -----
 
 ## 待实现
+>数据retcode, selector含义， synccheck与webwxsync具体流程
+
 ### 发送信息
 
 #### 请求Request
@@ -123,8 +123,8 @@ Content-Type: application/json;charset=UTF-8
 Accept: application/json, text/plain, */*
 
 {"BaseRequest":{"Uin":1315386831,"Sid":"/qHtVtxRL4PjQvDJ","Skey":"@crypt_8909546a_ba9185547580a0c294af9cce78f07881","DeviceID":"e972150959544764"},"Msg":{"Type":1,"Content":"。。。","FromUserName":"@2f81775f3404437f23e71fae3756b180e24225d19e85d909e0de972556f3d7e1","ToUserName":"@e88e9f3cce402c61a98886d2392b5c6ca535b10712758cbf1fb31782b50a79c7","LocalID":"15535108515590675","ClientMsgId":"15535108515590675"},"Scene":0}
-
 ```
+
 ![](./img/send_msg_body.jpg)
 
 #### 接收Response
@@ -163,6 +163,7 @@ Skey
 SyncCheckKey
 SyncKey
 ```
+
 ![](./img/received_msg_body.jpg)
 
 
@@ -175,6 +176,9 @@ Request:
 Response:
     window.synccheck={retcode:"0",selector:"0"}
 ```
+
 ![](./img/wx_sync_check.jpg)
-# Temp
-home test
+# Other
+>图灵机器人消息应答
+
+[图灵机器人接入](https://guanyuespace.github.io/2019/05/13/TuRing_Robot/)

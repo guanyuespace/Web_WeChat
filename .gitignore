@@ -1,10 +1,12 @@
 res/
 out/*
+build/*
 .idea/
 .gradle/*
 gradle/*
 *gradle*
 !build.gradle
 
+.attach*
 *.secret
 Secret.java
